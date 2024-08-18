@@ -5,112 +5,147 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ClassNet - Revolutionary Learning Platform</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;700&display=swap');
         
-        body, html {
+        * {
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body, html {
             height: 100%;
-            font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: #fff;
+            font-family: 'Montserrat', sans-serif;
+            background-color: #0a192f;
+            color: #64ffda;
             overflow: hidden;
         }
+        
         .container {
+            display: flex;
+            height: 100%;
+            padding: 2rem;
+        }
+        
+        .left-panel {
+            flex: 1;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            align-items: center;
-            height: 100%;
-            text-align: center;
+            padding-left: 5%;
         }
-        .logo {
-            font-size: 4em;
-            font-weight: 600;
-            margin-bottom: 0.5em;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-        .tagline {
-            font-size: 1.5em;
-            margin-bottom: 2em;
-            opacity: 0.9;
-        }
-        .coming-soon {
-            font-size: 2em;
-            font-weight: 300;
-            margin-bottom: 1em;
-        }
-        .loader {
-            width: 100px;
-            height: 100px;
-            border: 3px solid rgba(255,255,255,0.3);
-            border-radius: 50%;
-            border-top-color: #fff;
-            animation: spin 1s ease-in-out infinite;
-        }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        .features {
+        
+        .right-panel {
+            flex: 1;
             display: flex;
             justify-content: center;
-            margin-top: 3em;
+            align-items: center;
+            position: relative;
         }
+        
+        .logo {
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: #ccd6f6;
+        }
+        
+        .tagline {
+            font-size: 1.5rem;
+            margin-bottom: 2rem;
+            color: #8892b0;
+        }
+        
+        .coming-soon {
+            font-size: 2rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+        }
+        
+        .features {
+            margin-top: 2rem;
+        }
+        
         .feature {
-            margin: 0 1em;
-            font-size: 0.9em;
-            opacity: 0.8;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
         }
-        .particles {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
+        
+        .feature::before {
+            content: '▹';
+            color: #64ffda;
+            margin-right: 1rem;
         }
-        .particle {
-            position: absolute;
-            background-color: rgba(255,255,255,0.5);
+        
+        .circle {
+            width: 300px;
+            height: 300px;
+            border: 2px solid #64ffda;
             border-radius: 50%;
-            animation: float 15s infinite;
+            position: relative;
+            animation: rotate 20s linear infinite;
         }
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
+        
+        .circle::before, .circle::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 20px;
+            height: 20px;
+            background-color: #64ffda;
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .circle::before {
+            animation: orbit 5s linear infinite;
+        }
+        
+        .circle::after {
+            animation: orbit 7s linear infinite reverse;
+        }
+        
+        @keyframes rotate {
+            100% { transform: rotate(360deg); }
+        }
+        
+        @keyframes orbit {
+            100% { transform: translate(-50%, -50%) rotate(360deg) translateX(140px) rotate(-360deg); }
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            .left-panel, .right-panel {
+                padding: 2rem;
+            }
+            .circle {
+                width: 200px;
+                height: 200px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1 class="logo">ClassNet</h1>
-        <p class="tagline">The Future of Collaborative Learning</p>
-        <p class="coming-soon">Coming Soon</p>
-        <div class="loader"></div>
-        <div class="features">
-            <div class="feature">📚 Smart Classes</div>
-            <div class="feature">🏆 Skill Challenges</div>
-            <div class="feature">🤝 Peer Learning</div>
+        <div class="left-panel">
+            <h1 class="logo">ClassNet</h1>
+            <p class="tagline">Redefining Collaborative Learning</p>
+            <p class="coming-soon">Launching Soon</p>
+            <div class="features">
+                <div class="feature">Intelligent Class Management</div>
+                <div class="feature">Interactive Skill Challenges</div>
+                <div class="feature">Advanced Peer Learning System</div>
+                <div class="feature">Real-time Progress Tracking</div>
+            </div>
+        </div>
+        <div class="right-panel">
+            <div class="circle"></div>
         </div>
     </div>
-    <div class="particles" id="particles"></div>
-
-    <script>
-        function createParticles() {
-            const particlesContainer = document.getElementById('particles');
-            for (let i = 0; i < 50; i++) {
-                const particle = document.createElement('div');
-                particle.classList.add('particle');
-                particle.style.width = `${Math.random() * 10 + 5}px`;
-                particle.style.height = particle.style.width;
-                particle.style.left = `${Math.random() * 100}%`;
-                particle.style.top = `${Math.random() * 100}%`;
-                particle.style.animationDuration = `${Math.random() * 10 + 5}s`;
-                particle.style.animationDelay = `${Math.random() * 5}s`;
-                particlesContainer.appendChild(particle);
-            }
-        }
-        createParticles();
-    </script>
 </body>
 </html>
